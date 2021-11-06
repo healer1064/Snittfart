@@ -4,6 +4,10 @@
   padding: 0;
 }
 
+html {
+  background: #911d0a;
+}
+
 body {
   background: #911d0a;
   font-family: 'Noto Sans TC', sans-serif;
