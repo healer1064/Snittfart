@@ -14,10 +14,8 @@
     }
   ],
   "start_url": "/?source=pwa",
-  "background_color": "#911d0a",
   "display": "standalone",
   "scope": "/",
-  "theme_color": "#3367D6",
   "description": "Figure out how fast you must run to beat your friends or other top athletes.",
   "screenshots": []
 }
