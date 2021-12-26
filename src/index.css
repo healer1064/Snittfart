@@ -27,7 +27,7 @@ body {
 .App-header {
   color: white;
   background: var(--theme-color);
-  padding-bottom: 32px;
+  padding-bottom: 20px;
 }
 
 .App-navBar {
