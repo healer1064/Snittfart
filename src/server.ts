@@ -7,8 +7,8 @@ import http from 'http';
 import {
   ApiError,
   DoesNotExistError,
-  NotFound,
-  bodyParser,
+  after,
+  before,
   createLogger,
   createPostgres,
   envPort,
@@ -18,11 +18,9 @@ import {
   sql,
   useRequestId,
   validateQuery,
-  withRequestContext,
 } from '@devmoods/express-extras';
 import * as Sentry from '@sentry/node';
 import express from 'express';
-import helmet from 'helmet';
 
 import { toHHMMSS, withCommas } from './formatting';
 import type { EventPerformanceDto } from './types';
@@ -40,10 +38,7 @@ const logger = createLogger({
 });
 
 app.set('port', envPort());
-app.use(Sentry.Handlers.requestHandler());
-app.use(helmet());
-app.use(bodyParser.json());
-app.use(withRequestContext());
+app.use(before());
 
 app.get(
   '/api/records',
@@ -190,9 +185,7 @@ async function getSimilarPerformances(points: number, gender = 'male') {
   return postgres.all<EventPerformanceRow>(query);
 }
 
-app.use((req, res, next) => {
-  next(NotFound());
-});
+app.use(after());
 
 app.use(
   Sentry.Handlers.errorHandler({
