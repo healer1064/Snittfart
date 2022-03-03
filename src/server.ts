@@ -86,7 +86,21 @@ app.get(
       };
     };
 
-    const laps = [10000, 5000, 3000, 1500, 1000, 800, 400, 200, 100];
+    const laps = [
+      42195, 21097.5, 10000, 5000, 3000, 1500, 1000, 800, 400, 200, 100,
+    ];
+
+    const humanDistance = (distance: number) => {
+      if (distance === 42195) {
+        return 'Marathon';
+      }
+
+      if (distance === 21097.5) {
+        return 'Half marathon';
+      }
+
+      return `${withCommas(distance)} m`;
+    };
 
     return {
       performances: await Promise.all([get('male'), get('female')]),
@@ -95,7 +109,7 @@ app.get(
         return {
           id: index + 1,
           distance: lapDistance,
-          humanDistance: `${withCommas(lapDistance)} m`,
+          humanDistance: humanDistance(lapDistance),
           time: scaledSeconds,
           humanTime: toHHMMSS(scaledSeconds),
           riegel: toHHMMSS(time * (lapDistance / distance) ** 1.06),
